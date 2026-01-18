@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+.logo {
+  height: 45px;
+  width: 120px;
+}
+
+.navbar {
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.365);
+}
+.navbar .Banner {
+  transition: background 0.5s ease;
+}
+
+@keyframes HeroAnimActive {
+  from {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0.65;
+    transform: translateY(-15px);
+  }
+}
+
+.searchBar {
+  opacity: 0;
+  transform: translateX(-2px);
+  animation: searchBoxAnim 0.9s ease 0.5s forwards;
+}
+
+@keyframes searchBoxAnim {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.Banner {
+  animation: HeroAnimActive 0.5s ease;
+}
