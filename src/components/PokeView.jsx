@@ -1,5 +1,5 @@
 import React from "react";
-import { typeGradients } from "../constants";
+import { typeGradients, colourBasedTypes, getTypeMatchs } from "../constants";
 
 const PokeView = ({ fetchedData }) => {
   const type_s = fetchedData.types.map(({ type }) => type.name);
@@ -10,6 +10,7 @@ const PokeView = ({ fetchedData }) => {
 
   /* Destructuring Stats and Structuring again */
   const { stats } = fetchedData;
+
   const [
     { stat: hp, base_stat: hp_stat },
     { stat: attack, base_stat: attack_st },
@@ -106,9 +107,48 @@ const PokeView = ({ fetchedData }) => {
             </div>
           </div>
           <div
-            style={cardStyles}
-            className="h-100 p-5 bg-gray-300 w-75 border-6 rounded-4xl"
-          ></div>
+            style={pokeNameStyles}
+            className="h-100 p-5 bg-gray-300 w-75 border-[#FFDE00] border-6 rounded-4xl"
+          >
+            <div className="header flex justify-center text-4xl font-extrabold">
+              TYPE(S)
+            </div>
+
+            <div className="stats-content mt-5 flex justify-center font-bold font-sans text-3xl">
+              <div className="flex flex-col gap-3 justify-around">
+                {type_s.map((type, idx) => (
+                  <ul key={idx + 1}>
+                    <li className="flex gap-4" >
+                      <div
+                        style={{
+                          backgroundColor: colourBasedTypes(type),
+                        }}
+                        className="h-10 w-10 rounded-full border border-black/20 shadow-md"
+                      ></div>
+                      {type}
+                    </li>
+                  </ul>
+                ))}
+
+                <div className="strongWeak text-2xl">
+                  <div className="text-red-500 underline underline-offset-4 font-extrabold">Strong-Against :</div>{" "}
+                  {getTypeMatchs(type_s[0])[1].map(
+                    (type, idx) =>
+                      idx < 2 && (
+                        <div className="text-shadow-gray-700"> {type} </div>
+                      ),
+                  )}
+                  <div className="text-red-500 underline underline-offset-4 font-extrabold">Weak-Against :</div>{" "}
+                  {getTypeMatchs(type_s[0])[0].map(
+                    (type, idx) =>
+                      idx < 2 && (
+                        <div className="text-shadow-gray-700"> {type} </div>
+                      ),
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
           <div
             style={cardStyles}
             className="h-100 p-5 bg-gray-300 w-75 border-6 rounded-4xl"
