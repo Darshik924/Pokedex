@@ -321,6 +321,11 @@ const typeGradients = {
   },
 
   ...dualTypeGradients,
+  default: {
+    nav: "#444",
+    gradient: "linear-gradient(135deg, #777, #333)",
+    text: "#111",
+  },
 };
 
 const typeCardColors = {
