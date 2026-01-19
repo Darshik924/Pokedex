@@ -6,6 +6,7 @@ const PokeCard = ({ pokeData }) => {
   const type_s = pokeData.types.map(({ type }) => type.name);
   const key = type_s.length === 2 ? `${type_s[0]}-${type_s[1]}` : type_s[0];
   const { text } = typeGradients[key];
+  
 
   let pokeNameStyles = {
     color: `${text}`,

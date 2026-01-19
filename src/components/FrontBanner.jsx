@@ -5,7 +5,12 @@ import { typeGradients } from "../constants";
 import { fetchPokeData } from "../api/pokemonApi.js";
 import PokeGallery from "./PokeGallery.jsx";
 
-const FrontBanner = ({ updateNavTheme, isOnGallery, setIsOnGallery }) => {
+const FrontBanner = ({
+  updateNavTheme,
+  isOnGallery,
+  setIsOnGallery,
+  setIsOnPokeView,
+}) => {
   const [hasSearchedMulti, setHasSearchedMulti] = useState(false);
   const [pokeName, setpokeName] = useState("");
   const [multiPokeData, setMultiPokeData] = useState([]);
@@ -75,6 +80,7 @@ const FrontBanner = ({ updateNavTheme, isOnGallery, setIsOnGallery }) => {
     const types = data.types.map((t) => t.type.name);
     const { nav } = typeGradients[types[0]];
     updateNavTheme(nav);
+    setIsOnPokeView(true);
   }, [data, updateNavTheme]);
 
   const morePokesClicked = async () => {
@@ -152,7 +158,7 @@ const FrontBanner = ({ updateNavTheme, isOnGallery, setIsOnGallery }) => {
                 <div className="flex flex-row searchBar justify-center gap-5">
                   <input
                     className="rounded-3xl bg-amber-200 h-15 w-90 px-6 font-l text-indigo-900 placeholder:text-m placeholder:text-indigo-950"
-                    placeholder="Search with Space 20 max"
+                    placeholder="Search with Space"
                     type="text"
                     onChange={(e) => {
                       setpokeName(e.target.value);

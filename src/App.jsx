@@ -6,15 +6,17 @@ import FrontBanner from "./components/FrontBanner";
 const App = () => {
   const [navTheme, setNavTheme] = useState("#000");
   const [isOnGalleryNew, setIsOnGalleryNew] = useState(false);
+  const [isOnPokeView, setIsOnPokeView] = useState(false);
 
   return (
     <div>
       <Nav
-        isOnGallery={isOnGalleryNew}
+        isOnPokeView={isOnPokeView}
         setIsOnGallery={setIsOnGalleryNew}
         bgColor={navTheme}
       />
       <FrontBanner
+        setIsOnPokeView={setIsOnPokeView}
         isOnGallery={isOnGalleryNew}
         setIsOnGallery={setIsOnGalleryNew}
         updateNavTheme={setNavTheme}
