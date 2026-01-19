@@ -118,7 +118,7 @@ const PokeView = ({ fetchedData }) => {
               <div className="flex flex-col gap-3 justify-around">
                 {type_s.map((type, idx) => (
                   <ul key={idx + 1}>
-                    <li className="flex gap-4" >
+                    <li className="flex gap-4">
                       <div
                         style={{
                           backgroundColor: colourBasedTypes(type),
@@ -131,18 +131,38 @@ const PokeView = ({ fetchedData }) => {
                 ))}
 
                 <div className="strongWeak text-2xl">
-                  <div className="text-red-500 underline underline-offset-4 font-extrabold">Strong-Against :</div>{" "}
+                  <div className="text-red-500 underline underline-offset-4 font-extrabold">
+                    Strong-Against :
+                  </div>{" "}
                   {getTypeMatchs(type_s[0])[1].map(
                     (type, idx) =>
                       idx < 2 && (
-                        <div className="text-shadow-gray-700"> {type} </div>
+                        <div className="mt-1 flex gap-3">
+                          <div
+                            style={{
+                              backgroundColor: colourBasedTypes(type),
+                            }}
+                            className="h-6 w-6 rounded-full border border-black/20 shadow-md"
+                          ></div>
+                          <div className="text-shadow-gray-700"> {type} </div>
+                        </div>
                       ),
                   )}
-                  <div className="text-red-500 underline underline-offset-4 font-extrabold">Weak-Against :</div>{" "}
+                  <div className="text-red-500 underline underline-offset-4 font-extrabold">
+                    Weak-Against :
+                  </div>{" "}
                   {getTypeMatchs(type_s[0])[0].map(
                     (type, idx) =>
                       idx < 2 && (
-                        <div className="text-shadow-gray-700"> {type} </div>
+                        <div className="mt-1 flex gap-3">
+                          <div
+                            style={{
+                              backgroundColor: colourBasedTypes(type),
+                            }}
+                            className="h-6 w-6 rounded-full border border-black/20 shadow-md"
+                          ></div>
+                          <div className="text-shadow-gray-700"> {type} </div>
+                        </div>
                       ),
                   )}
                 </div>

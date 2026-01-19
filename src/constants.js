@@ -1,3 +1,134 @@
+/* I would like to sincerely thank chat-GPT for sharing with me his vast amounts of knowledge on POKemon and their types XDD */
+
+/* ---------- ALL DUAL TYPES ---------- */
+const dualTypeGradients = {
+  "bug-dark": {
+    gradient: "linear-gradient(135deg, #A8B820, #705848)",
+    text: "#1E1813",
+  },
+  "bug-dragon": {
+    gradient: "linear-gradient(135deg, #A8B820, #7038F8)",
+    text: "#26124A",
+  },
+  "bug-electric": {
+    gradient: "linear-gradient(135deg, #A8B820, #F8D030)",
+    text: "#3A2F00",
+  },
+  "bug-fairy": {
+    gradient: "linear-gradient(135deg, #A8B820, #EE99AC)",
+    text: "#4A1F2A",
+  },
+  "bug-fighting": {
+    gradient: "linear-gradient(135deg, #A8B820, #C03028)",
+    text: "#3B0E0B",
+  },
+  "bug-fire": {
+    gradient: "linear-gradient(135deg, #A8B820, #F08030)",
+    text: "#4A1A00",
+  },
+  "bug-flying": {
+    gradient: "linear-gradient(135deg, #A8B820, #A890F0)",
+    text: "#2F2555",
+  },
+  "bug-ghost": {
+    gradient: "linear-gradient(135deg, #A8B820, #705898)",
+    text: "#2B1F40",
+  },
+  "bug-grass": {
+    gradient: "linear-gradient(135deg, #A8B820, #78C850)",
+    text: "#183B12",
+  },
+  "bug-ground": {
+    gradient: "linear-gradient(135deg, #A8B820, #E0C068)",
+    text: "#3B2F12",
+  },
+  "bug-ice": {
+    gradient: "linear-gradient(135deg, #A8B820, #98D8D8)",
+    text: "#0B2E33",
+  },
+  "bug-poison": {
+    gradient: "linear-gradient(135deg, #A8B820, #A040A0)",
+    text: "#2F1235",
+  },
+  "bug-psychic": {
+    gradient: "linear-gradient(135deg, #A8B820, #F85888)",
+    text: "#4A1325",
+  },
+  "bug-rock": {
+    gradient: "linear-gradient(135deg, #A8B820, #B8A038)",
+    text: "#2E260B",
+  },
+  "bug-steel": {
+    gradient: "linear-gradient(135deg, #A8B820, #B8B8D0)",
+    text: "#1F2333",
+  },
+  "bug-water": {
+    gradient: "linear-gradient(135deg, #A8B820, #6890F0)",
+    text: "#102A5C",
+  },
+
+  "dark-dragon": {
+    gradient: "linear-gradient(135deg, #705848, #7038F8)",
+    text: "#26124A",
+  },
+  "dark-electric": {
+    gradient: "linear-gradient(135deg, #705848, #F8D030)",
+    text: "#3A2F00",
+  },
+  "dark-fairy": {
+    gradient: "linear-gradient(135deg, #705848, #EE99AC)",
+    text: "#4A1F2A",
+  },
+  "dark-fighting": {
+    gradient: "linear-gradient(135deg, #705848, #C03028)",
+    text: "#3B0E0B",
+  },
+  "dark-fire": {
+    gradient: "linear-gradient(135deg, #705848, #F08030)",
+    text: "#4A1A00",
+  },
+  "dark-flying": {
+    gradient: "linear-gradient(135deg, #705848, #A890F0)",
+    text: "#1E1813",
+  },
+  "dark-ghost": {
+    gradient: "linear-gradient(135deg, #705848, #705898)",
+    text: "#1E1813",
+  },
+  "dark-grass": {
+    gradient: "linear-gradient(135deg, #705848, #78C850)",
+    text: "#183B12",
+  },
+  "dark-ground": {
+    gradient: "linear-gradient(135deg, #705848, #E0C068)",
+    text: "#3B2F12",
+  },
+  "dark-ice": {
+    gradient: "linear-gradient(135deg, #705848, #98D8D8)",
+    text: "#0B2E33",
+  },
+  "dark-poison": {
+    gradient: "linear-gradient(135deg, #705848, #A040A0)",
+    text: "#2F1235",
+  },
+  "dark-psychic": {
+    gradient: "linear-gradient(135deg, #705848, #F85888)",
+    text: "#4A1325",
+  },
+  "dark-rock": {
+    gradient: "linear-gradient(135deg, #705848, #B8A038)",
+    text: "#2E260B",
+  },
+  "dark-steel": {
+    gradient: "linear-gradient(135deg, #705848, #B8B8D0)",
+    text: "#1F2333",
+  },
+  "dark-water": {
+    gradient: "linear-gradient(135deg, #705848, #6890F0)",
+    text: "#102A5C",
+  },
+};
+
 const typeGradients = {
   /* ---------- SINGLE TYPES ---------- */
   normal: {
@@ -189,12 +320,7 @@ const typeGradients = {
     text: "#26124A",
   },
 
-  /* ---------- FALLBACK ---------- */
-  default: {
-    nav: "#444",
-    gradient: "linear-gradient(135deg, #777, #333)",
-    text: "#111",
-  },
+  ...dualTypeGradients,
 };
 
 const typeCardColors = {
