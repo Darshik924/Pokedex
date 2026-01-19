@@ -1,5 +1,6 @@
 import React from "react";
 import { typeGradients, colourBasedTypes, getTypeMatchs } from "../constants";
+import PokeCard from "./PokeCard";
 
 const PokeView = ({ fetchedData }) => {
   const type_s = fetchedData.types.map(({ type }) => type.name);
@@ -52,7 +53,7 @@ const PokeView = ({ fetchedData }) => {
       className="mt-15 flex flex-row justify-center Banner pt-18 w-full min-h-screen bg-cover bg-center"
     >
       <div className="flex flex-col justify-around">
-        <div className="flex flex-row justify-center">
+        {/* <div className="pokeCard flex flex-row justify-center">
           <div
             style={mainCardStyles}
             className="poke-head flex flex-col w-105 rounded-3xl border-4 border-teal-50 p-4 gap-3 justify-around"
@@ -79,12 +80,14 @@ const PokeView = ({ fetchedData }) => {
               {str.length === 4 && <div>#{fetchedData.id}</div>}
             </div>
           </div>
-        </div>
+        </div> */}
+        <PokeCard pokeData={fetchedData} />
+        {/* I choosed not to use PokeCard component as i wanted to display types later*/}
 
         <div className="cards max-w-350 mt-15 p-5 border-amber-400 flex flex-row gap-8 justify-around">
           <div
             style={cardStyles}
-            className="h-100 p-5 bg-gray-300 w-75 border-6 rounded-4xl"
+            className="h-110 p-5 bg-gray-300 w-80 border-6 rounded-4xl"
           >
             <div
               style={pokeNameStyles}
@@ -108,13 +111,13 @@ const PokeView = ({ fetchedData }) => {
           </div>
           <div
             style={pokeNameStyles}
-            className="h-100 p-5 bg-gray-300 w-75 border-[#FFDE00] border-6 rounded-4xl"
+            className="h-110 p-5 bg-gray-300 w-80 border-[#FFDE00] border-6 rounded-4xl"
           >
             <div className="header flex justify-center text-4xl font-extrabold">
               TYPE(S)
             </div>
 
-            <div className="stats-content mt-5 flex justify-center font-bold font-sans text-3xl">
+            <div className="types-content mt-5 flex justify-center font-bold font-sans text-3xl">
               <div className="flex flex-col gap-3 justify-around">
                 {type_s.map((type, idx) => (
                   <ul key={idx + 1}>
@@ -171,15 +174,15 @@ const PokeView = ({ fetchedData }) => {
           </div>
           <div
             style={cardStyles}
-            className="h-100 p-5 bg-gray-300 w-75 border-6 rounded-4xl"
+            className="h-110 p-5 bg-gray-300 w-80 border-6 rounded-4xl"
           ></div>
           <div
             style={cardStyles}
-            className="h-100 p-5 bg-gray-300 w-75 border-6 rounded-4xl"
+            className="h-110 p-5 bg-gray-300 w-80 border-6 rounded-4xl"
           ></div>
           <div
             style={cardStyles}
-            className="h-100 p-5 bg-gray-300 w-75 border-6 rounded-4xl"
+            className="h-110 p-5 bg-gray-300 w-80 border-6 rounded-4xl"
           ></div>
         </div>
       </div>
@@ -188,14 +191,3 @@ const PokeView = ({ fetchedData }) => {
 };
 
 export default PokeView;
-
-{
-  /*  POKE IMAGE :
-      {data && (
-        <img
-          src={data.sprites.other["official-artwork"].front_default}
-          alt={data.name}
-          className="w-48 h-48 drop-shadow-2xl"
-        />
-      )} */
-}

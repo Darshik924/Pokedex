@@ -9,6 +9,7 @@ const FrontBanner = ({ updateNavTheme }) => {
   const [data, setData] = useState(null);
   const [isLoading, setisLoading] = useState(false);
   const [emptyError, setEmptyError] = useState(false);
+  const [incorrectPokeName, setIncorrectPokename] = useState(false);
 
   const handlePokeSubmit = () => {
     if (pokeName) {
@@ -25,6 +26,8 @@ const FrontBanner = ({ updateNavTheme }) => {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`); // Using the pokemon API for Searchec Pokemon Data
 
       if (!response.ok) {
+        setIncorrectPokename(true);
+
         throw new Error(
           `Pokemon ${name} not found`,
         ); /* In Order to effectively handle 404 not found types of error etc */
@@ -98,8 +101,13 @@ const FrontBanner = ({ updateNavTheme }) => {
               </button>
             </div>
             {emptyError && (
-              <div className="emptyTexterror text-2xl text-red-500 font-extrabold font-serif">
+              <div className="emptyTexterror text-2xl text-red-500 font-bold font-serif">
                 Pokemon Name cannot be empty
+              </div>
+            )}
+            {incorrectPokeName && (
+              <div className="incorrectPoke text-3xl text-red-500 font-bold font-serif">
+                Please Enter a Valid Pokemon Name or Pokedex No.
               </div>
             )}
           </div>
