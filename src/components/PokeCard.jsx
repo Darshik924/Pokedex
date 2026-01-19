@@ -19,10 +19,10 @@ const PokeCard = ({ pokeData }) => {
   };
 
   return (
-    <div className="pokeCard flex flex-row justify-center">
+    <div className="pokeCard">
       <div
         style={mainCardStyles}
-        className="poke-head flex flex-col w-97 rounded-3xl border-4 border-teal-50 p-4 gap-1 justify-around"
+        className="poke-head h-140 flex flex-col w-90 rounded-3xl border-4 border-teal-50 p-4 gap-1 justify-around"
       >
         <div className="flex flex-row justify-center">
           <img

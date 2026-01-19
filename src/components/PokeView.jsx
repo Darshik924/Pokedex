@@ -81,7 +81,6 @@ const PokeView = ({ fetchedData }) => {
             </div>
           </div>
         </div>
-        {/* <PokeCard pokeData={fetchedData} /> */}
         {/* I choosed not to use PokeCard component as i wanted to display types later*/}
 
         <div className="cards max-w-350 mt-15 p-5 border-amber-400 flex flex-row gap-8 justify-around">

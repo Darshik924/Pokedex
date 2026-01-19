@@ -3,8 +3,11 @@ import PokeView from "./PokeView.jsx";
 import PokeSkeleton from "./PokeSkeleton.jsx";
 import { typeGradients } from "../constants";
 import { fetchPokeData } from "../api/pokemonApi.js";
+import PokeGallery from "./PokeGallery.jsx";
 
 const FrontBanner = ({ updateNavTheme }) => {
+  const [isOnGallery, setIsOnGallery] = useState(true);
+  const [hasSearchedMulti, setHasSearchedMulti] = useState(false);
   const [pokeName, setpokeName] = useState("");
   const [multiPokeData, setMultiPokeData] = useState([]);
   const [data, setData] = useState(null);
@@ -42,6 +45,8 @@ const FrontBanner = ({ updateNavTheme }) => {
       setEmptyError(false);
       setIncorrectPokename(false);
       setisLoading(true);
+      setHasSearchedMulti(true);
+      setIsOnGallery(false);
 
       const pokeNamesArr = pokeName.trim().toLowerCase().split(" ");
 
@@ -52,7 +57,6 @@ const FrontBanner = ({ updateNavTheme }) => {
       Map method will return an array of promises, Now we pass all those promises into Promise object's method all 
       It is much like Promise.all([...promises]). It takes an array of promises, runs them in parallel and waits unitl all of them are resolved 
       */
-      console.log(pokeDataResult);
       setMultiPokeData(pokeDataResult);
     } catch (err) {
       setIncorrectPokename(true);
@@ -117,27 +121,34 @@ const FrontBanner = ({ updateNavTheme }) => {
                 Submit
               </button>
             </div>
+            {isOnGallery && (
+              <div className="flex flex-col gap-10">
+                <div className="gallery-text text-4xl text-yellow-950/85 font-bold">
+                  Or Search For multiple Pokemon Gallery at once
+                </div>
 
-            <div className="gallery-text text-5xl text-yellow-950/85 font-bold">
-              Or Search For multiple Pokemon Gallery at once
-            </div>
+                <div className="flex flex-row searchBar justify-center gap-5">
+                  <input
+                    className="rounded-3xl bg-amber-200 h-15 w-90 px-6 font-l text-indigo-900 placeholder:text-m placeholder:text-indigo-950"
+                    placeholder="Search with Space 20 max"
+                    type="text"
+                    onChange={(e) => {
+                      setpokeName(e.target.value);
+                    }}
+                  />
+                  <button
+                    onClick={handleMultiPokeSubmit}
+                    className="rounded-3xl text-xl font-bold w-35 cursor-pointer hover:bg-amber-600 bg-amber-500 text-white text-bold p-1"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </div>
+            )}
 
-            <div className="flex flex-row searchBar justify-center gap-5">
-              <input
-                className="rounded-3xl bg-amber-200 h-15 w-90 px-6 font-l text-indigo-900 placeholder:text-m placeholder:text-indigo-950"
-                placeholder="Search with Space"
-                type="text"
-                onChange={(e) => {
-                  setpokeName(e.target.value);
-                }}
-              />
-              <button
-                onClick={handleMultiPokeSubmit}
-                className="rounded-3xl text-xl font-bold w-35 cursor-pointer hover:bg-amber-600 bg-amber-500 text-white text-bold p-1"
-              >
-                Submit
-              </button>
-            </div>
+            {hasSearchedMulti && <PokeGallery pokemons={multiPokeData} />}
+
+            
 
             {emptyError && (
               <div className="emptyTexterror text-2xl text-red-500 font-bold font-serif">
