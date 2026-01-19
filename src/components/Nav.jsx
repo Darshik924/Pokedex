@@ -7,7 +7,7 @@ import { useState, useRef } from "react";
 import pokeTheme from "../assets/pokemon_opening_theme.mp3";
 import Logo from "../assets/logonew4.png";
 
-const Nav = ({ bgColor }) => {
+const Nav = ({ bgColor, setIsOnGallery }) => {
   const themeSong = useRef(new Audio(pokeTheme)); // Using useRef will make it create audio object only once and its value will persist across re-renders
   const [isPlaying, setisPlaying] = useState(false);
   const [place, setPlace] = useState("home");
@@ -48,9 +48,8 @@ const Nav = ({ bgColor }) => {
   };
   const enterComparison = () => {
     setPlace("comparison");
-    
-    
 
+    setIsOnGallery(true);
   };
 
   return (

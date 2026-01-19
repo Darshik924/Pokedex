@@ -5,8 +5,7 @@ import { typeGradients } from "../constants";
 import { fetchPokeData } from "../api/pokemonApi.js";
 import PokeGallery from "./PokeGallery.jsx";
 
-const FrontBanner = ({ updateNavTheme }) => {
-  const [isOnGallery, setIsOnGallery] = useState(true);
+const FrontBanner = ({ updateNavTheme, isOnGallery, setIsOnGallery }) => {
   const [hasSearchedMulti, setHasSearchedMulti] = useState(false);
   const [pokeName, setpokeName] = useState("");
   const [multiPokeData, setMultiPokeData] = useState([]);
@@ -145,7 +144,7 @@ const FrontBanner = ({ updateNavTheme }) => {
             )}
 
             {isOnGallery && (
-              <div className="flex flex-col gap-10">
+              <div className="flex searchBar flex-col gap-10">
                 <div className="gallery-text text-4xl text-yellow-950/85 font-bold">
                   Search For multiple Pokemon Gallery at once
                 </div>
