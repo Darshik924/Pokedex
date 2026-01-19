@@ -57,7 +57,11 @@ const FrontBanner = ({ updateNavTheme }) => {
       Map method will return an array of promises, Now we pass all those promises into Promise object's method all 
       It is much like Promise.all([...promises]). It takes an array of promises, runs them in parallel and waits unitl all of them are resolved 
       */
-      setMultiPokeData(pokeDataResult);
+      if (multiPokeData) {
+        setMultiPokeData((prev) => [...prev, ...pokeDataResult]);
+      } else {
+        setMultiPokeData(pokeDataResult);
+      }
     } catch (err) {
       setIncorrectPokename(true);
     } finally {
@@ -73,6 +77,10 @@ const FrontBanner = ({ updateNavTheme }) => {
     const { nav } = typeGradients[types[0]];
     updateNavTheme(nav);
   }, [data, updateNavTheme]);
+
+  const morePokesClicked = async () => {
+    setIsOnGallery(true);
+  };
 
   if (isLoading) {
     /* Want a skeleton screen to be loaded which would resemble the PokeView component which would be cooler than loading icons :))) */
@@ -96,7 +104,7 @@ const FrontBanner = ({ updateNavTheme }) => {
   return (
     !isLoading &&
     !data && (
-      <section className="mt-15 Banner bg-linear-to-r from-[#FFCB05]/70 to-[#3466AF]/70 pt-18 w-full min-h-screen bg-cover bg-center">
+      <section className="mt-15 pb-30 Banner bg-linear-to-r from-[#FFCB05]/70 to-[#3466AF]/70 pt-18 w-full min-h-screen bg-cover bg-center">
         <div className="flex justify-center">
           <div className="flex flex-col justify-center items-center gap-10">
             <div className="ban-text text-8xl text-yellow-950/85 font-bold">
@@ -121,10 +129,25 @@ const FrontBanner = ({ updateNavTheme }) => {
                 Submit
               </button>
             </div>
+
+            {hasSearchedMulti && (
+              <div>
+                <PokeGallery pokemons={multiPokeData} />
+                <div className="flex justify-center">
+                  <button
+                    onClick={morePokesClicked}
+                    className="text-xl hover:cursor-pointer font-bold font-sans text-white bg-amber-500 p-4 border-2 border-amber-50 rounded-3xl"
+                  >
+                    Want More ?
+                  </button>
+                </div>
+              </div>
+            )}
+
             {isOnGallery && (
               <div className="flex flex-col gap-10">
                 <div className="gallery-text text-4xl text-yellow-950/85 font-bold">
-                  Or Search For multiple Pokemon Gallery at once
+                  Search For multiple Pokemon Gallery at once
                 </div>
 
                 <div className="flex flex-row searchBar justify-center gap-5">
@@ -145,10 +168,6 @@ const FrontBanner = ({ updateNavTheme }) => {
                 </div>
               </div>
             )}
-
-            {hasSearchedMulti && <PokeGallery pokemons={multiPokeData} />}
-
-            
 
             {emptyError && (
               <div className="emptyTexterror text-2xl text-red-500 font-bold font-serif">

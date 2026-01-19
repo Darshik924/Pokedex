@@ -48,7 +48,9 @@ const Nav = ({ bgColor }) => {
   };
   const enterComparison = () => {
     setPlace("comparison");
-    console.log("comparison CLicked");
+    
+    
+
   };
 
   return (
