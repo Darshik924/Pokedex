@@ -1,44 +1,61 @@
 import React, { useEffect, useState } from "react";
-import bannerImg from "../assets/background.jpg";
 import PokeView from "./PokeView.jsx";
 import PokeSkeleton from "./PokeSkeleton.jsx";
 import { typeGradients } from "../constants";
+import { fetchPokeData } from "../api/pokemonApi.js";
 
 const FrontBanner = ({ updateNavTheme }) => {
   const [pokeName, setpokeName] = useState("");
+  const [multiPokeData, setMultiPokeData] = useState([]);
   const [data, setData] = useState(null);
   const [isLoading, setisLoading] = useState(false);
   const [emptyError, setEmptyError] = useState(false);
   const [incorrectPokeName, setIncorrectPokename] = useState(false);
 
-  const handlePokeSubmit = () => {
-    if (pokeName) {
-      setEmptyError(false);
-      fetchPokeData(pokeName.toLowerCase());
-    } else if (pokeName.length === 0) {
+  const handlePokeSubmit = async () => {
+    if (!pokeName.trim()) {
       setEmptyError(true);
+      return;
+    }
+
+    try {
+      setEmptyError(false);
+      setIncorrectPokename(false);
+      setisLoading(true);
+
+      const result = await fetchPokeData(pokeName.toLowerCase());
+      setData(result);
+    } catch (err) {
+      setIncorrectPokename(true);
+    } finally {
+      setisLoading(false);
     }
   };
 
-  const fetchPokeData = async (name) => {
+  const handleMultiPokeSubmit = async () => {
+    if (!pokeName.trim()) {
+      setEmptyError(true);
+      return;
+    }
+
     try {
+      setEmptyError(false);
+      setIncorrectPokename(false);
       setisLoading(true);
-      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`); // Using the pokemon API for Searchec Pokemon Data
 
-      if (!response.ok) {
-        setIncorrectPokename(true);
+      const pokeNamesArr = pokeName.trim().toLowerCase().split(" ");
 
-        throw new Error(
-          `Pokemon ${name} not found`,
-        ); /* In Order to effectively handle 404 not found types of error etc */
-      }
-
-      const dataIntermed = await response.json();
-      setData(dataIntermed);
-
-      console.log(dataIntermed);
-    } catch (error) {
-      console.error(error);
+      const pokeDataResult = await Promise.all(
+        pokeNamesArr.map((name) => fetchPokeData(name)),
+      );
+      /* 
+      Map method will return an array of promises, Now we pass all those promises into Promise object's method all 
+      It is much like Promise.all([...promises]). It takes an array of promises, runs them in parallel and waits unitl all of them are resolved 
+      */
+      console.log(pokeDataResult);
+      setMultiPokeData(pokeDataResult);
+    } catch (err) {
+      setIncorrectPokename(true);
     } finally {
       setisLoading(false);
     }
@@ -100,6 +117,28 @@ const FrontBanner = ({ updateNavTheme }) => {
                 Submit
               </button>
             </div>
+
+            <div className="gallery-text text-5xl text-yellow-950/85 font-bold">
+              Or Search For multiple Pokemon Gallery at once
+            </div>
+
+            <div className="flex flex-row searchBar justify-center gap-5">
+              <input
+                className="rounded-3xl bg-amber-200 h-15 w-90 px-6 font-l text-indigo-900 placeholder:text-m placeholder:text-indigo-950"
+                placeholder="Search with Space"
+                type="text"
+                onChange={(e) => {
+                  setpokeName(e.target.value);
+                }}
+              />
+              <button
+                onClick={handleMultiPokeSubmit}
+                className="rounded-3xl text-xl font-bold w-35 cursor-pointer hover:bg-amber-600 bg-amber-500 text-white text-bold p-1"
+              >
+                Submit
+              </button>
+            </div>
+
             {emptyError && (
               <div className="emptyTexterror text-2xl text-red-500 font-bold font-serif">
                 Pokemon Name cannot be empty

@@ -13,11 +13,11 @@ const PokeView = ({ fetchedData }) => {
   const { stats } = fetchedData;
 
   const [
-    { stat: hp, base_stat: hp_stat },
-    { stat: attack, base_stat: attack_st },
-    { stat: defense, base_stat: defence_st },
-    { stat: spAtk, base_stat: spAtf_st },
-    { stat: spDef, base_stat: spDef_st },
+    { base_stat: hp_stat },
+    { base_stat: attack_st },
+    { base_stat: defence_st },
+    { base_stat: spAtf_st },
+    { base_stat: spDef_st },
   ] = stats;
 
   const pokeStats = [
@@ -53,7 +53,7 @@ const PokeView = ({ fetchedData }) => {
       className="mt-15 flex flex-row justify-center Banner pt-18 w-full min-h-screen bg-cover bg-center"
     >
       <div className="flex flex-col justify-around">
-        {/* <div className="pokeCard flex flex-row justify-center">
+        <div className="pokeCard flex flex-row justify-center">
           <div
             style={mainCardStyles}
             className="poke-head flex flex-col w-105 rounded-3xl border-4 border-teal-50 p-4 gap-3 justify-around"
@@ -80,8 +80,8 @@ const PokeView = ({ fetchedData }) => {
               {str.length === 4 && <div>#{fetchedData.id}</div>}
             </div>
           </div>
-        </div> */}
-        <PokeCard pokeData={fetchedData} />
+        </div>
+        {/* <PokeCard pokeData={fetchedData} /> */}
         {/* I choosed not to use PokeCard component as i wanted to display types later*/}
 
         <div className="cards max-w-350 mt-15 p-5 border-amber-400 flex flex-row gap-8 justify-around">
@@ -137,7 +137,7 @@ const PokeView = ({ fetchedData }) => {
                   <div className="text-red-500 underline underline-offset-4 font-extrabold">
                     Strong-Against :
                   </div>{" "}
-                  {getTypeMatchs(type_s[0])[1].map(
+                  {getTypeMatchs(...type_s)[1].map(
                     (type, idx) =>
                       idx < 2 && (
                         <div className="mt-1 flex gap-3">
@@ -154,7 +154,7 @@ const PokeView = ({ fetchedData }) => {
                   <div className="text-red-500 underline underline-offset-4 font-extrabold">
                     Weak-Against :
                   </div>{" "}
-                  {getTypeMatchs(type_s[0])[0].map(
+                  {getTypeMatchs(...type_s)[0].map(
                     (type, idx) =>
                       idx < 2 && (
                         <div className="mt-1 flex gap-3">
