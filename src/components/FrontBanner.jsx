@@ -31,6 +31,7 @@ const FrontBanner = ({
       setisLoading(true);
 
       const result = await fetchPokeData(pokeName.toLowerCase());
+      console.log(result);
       setData(result);
     } catch (err) {
       setIncorrectPokename(true);

@@ -81,7 +81,7 @@ const PokeView = ({ fetchedData }) => {
             </div>
           </div>
         </div>
-        {/* I choosed not to use PokeCard component as i wanted to display types later*/}
+        {/* I choosed not to use PokeCard component as i wanted to display things differently*/}
 
         <div className="cards max-w-350 mt-15 p-5 border-amber-400 flex flex-row gap-8 justify-around">
           <div
@@ -174,7 +174,24 @@ const PokeView = ({ fetchedData }) => {
           <div
             style={cardStyles}
             className="h-110 p-5 bg-gray-300 w-80 border-6 rounded-4xl"
-          ></div>
+          >
+            <div className="header flex justify-center text-4xl font-extrabold">
+              ABILITIES
+            </div>
+
+            <div className="mt-7 content flex flex-row justify-center text-3xl font-bold font-sans">
+              <div className="flex flex-col gap-4 justify-around">
+                {fetchedData.abilities.map(({ ability, slot }) => (
+                  <ul key={slot}>
+                    <li className="flex gap-3 justfiy-center">
+                      <div className="border-2 bg-gray-800 rounded-2xl h-6 w-6 p-2 mt-2"></div>
+                      {ability.name}
+                    </li>
+                  </ul>
+                ))}
+              </div>
+            </div>
+          </div>
           <div
             style={cardStyles}
             className="h-110 p-5 bg-gray-300 w-80 border-6 rounded-4xl"
