@@ -6,7 +6,6 @@ const PokeCard = ({ pokeData }) => {
   const type_s = pokeData.types.map(({ type }) => type.name);
   const key = type_s.length === 2 ? `${type_s[0]}-${type_s[1]}` : type_s[0];
   const { text } = typeGradients[key];
-  
 
   let pokeNameStyles = {
     color: `${text}`,
@@ -15,12 +14,12 @@ const PokeCard = ({ pokeData }) => {
     backgroundColor: `#1A202C`,
   };
   let mainCardStyles = {
-    backgroundColor: "#F5F7FB",
+    backgroundColor: "#edf2f7",
     filter: "brightness(0.85)",
   };
 
   return (
-    <div className="pokeCard">
+    <div className="pokeCard animate-fadeIn">
       <div
         style={mainCardStyles}
         className="poke-head h-140 flex flex-col w-90 rounded-3xl border-4 border-teal-50 p-4 gap-1 justify-around"

@@ -19,7 +19,6 @@ const FrontBanner = ({
   const [isLoading, setisLoading] = useState(false);
   const [emptyError, setEmptyError] = useState(false);
   const [incorrectPokeName, setIncorrectPokename] = useState(false);
-  let pokeNamesArr;
 
   const handlePokeSubmit = async () => {
     if (!pokeName.trim()) {
@@ -51,13 +50,15 @@ const FrontBanner = ({
     try {
       setEmptyError(false);
       setIncorrectPokename(false);
-      setisLoading(true);
       setIsOnGallery(false);
-      pokeNamesArr = pokeName.trim().toLowerCase().split(" ");
+      setisLoading(true);
       setHasSearchedMulti(true);
+      setIsOnPokeView(false);
+      setData(null);
+      const names = pokeName.trim().toLowerCase().split(" ");
 
       const pokeDataResult = await Promise.all(
-        pokeNamesArr.map((name) => fetchPokeData(name)),
+        names.map((name) => fetchPokeData(name)),
       );
       /* 
       Map method will return an array of promises, Now we pass all those promises into Promise object's method all 
@@ -87,12 +88,9 @@ const FrontBanner = ({
 
   const morePokesClicked = async () => {
     setIsOnGallery(true);
+    setIsOnPokeView(false);
+    setData(null);
   };
-
-  // if (isLoading) {
-  //   /* Want a skeleton screen to be loaded which would resemble the PokeView component which would be cooler than loading icons :))) */
-  //   return <PokeSkeleton />;
-  // }
 
   /*
   Also must keep in mind for react hooks to be rendered before any condition statements(as like the loading one which returns PokeSkeleton component even before useEffect executes)
@@ -111,6 +109,12 @@ const FrontBanner = ({
   return (
     <div>
       {isLoading && !hasSearchedMulti && <PokeSkeleton />}
+
+      {hasSearchedMulti && isLoading && (
+        <section className="mt-15 pb-30 Banner bg-linear-to-r from-[#FFCB05]/70 to-[#3466AF]/70 pt-18 w-full min-h-screen bg-cover bg-center">
+          <PokeGallerySkeleton />
+        </section>
+      )}
 
       {!isLoading && !data && (
         <section className="mt-15 pb-30 Banner bg-linear-to-r from-[#FFCB05]/70 to-[#3466AF]/70 pt-18 w-full min-h-screen bg-cover bg-center">
@@ -138,12 +142,6 @@ const FrontBanner = ({
                   Submit
                 </button>
               </div>
-
-              {hasSearchedMulti && isLoading && (
-                <div>
-                  <PokeGallerySkeleton pokemons={pokeNamesArr} />
-                </div>
-              )}
 
               {hasSearchedMulti && !isLoading && (
                 <div>
