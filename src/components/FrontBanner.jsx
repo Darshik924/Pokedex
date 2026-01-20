@@ -4,6 +4,7 @@ import PokeSkeleton from "./PokeSkeleton.jsx";
 import { typeGradients } from "../constants";
 import { fetchPokeData } from "../api/pokemonApi.js";
 import PokeGallery from "./PokeGallery.jsx";
+import PokeGallerySkeleton from "./PokeGallerySkeleton.jsx";
 
 const FrontBanner = ({
   updateNavTheme,
@@ -18,6 +19,7 @@ const FrontBanner = ({
   const [isLoading, setisLoading] = useState(false);
   const [emptyError, setEmptyError] = useState(false);
   const [incorrectPokeName, setIncorrectPokename] = useState(false);
+  let pokeNamesArr;
 
   const handlePokeSubmit = async () => {
     if (!pokeName.trim()) {
@@ -50,10 +52,9 @@ const FrontBanner = ({
       setEmptyError(false);
       setIncorrectPokename(false);
       setisLoading(true);
-      setHasSearchedMulti(true);
       setIsOnGallery(false);
-
-      const pokeNamesArr = pokeName.trim().toLowerCase().split(" ");
+      pokeNamesArr = pokeName.trim().toLowerCase().split(" ");
+      setHasSearchedMulti(true);
 
       const pokeDataResult = await Promise.all(
         pokeNamesArr.map((name) => fetchPokeData(name)),
@@ -88,10 +89,10 @@ const FrontBanner = ({
     setIsOnGallery(true);
   };
 
-  if (isLoading) {
-    /* Want a skeleton screen to be loaded which would resemble the PokeView component which would be cooler than loading icons :))) */
-    return <PokeSkeleton />;
-  }
+  // if (isLoading) {
+  //   /* Want a skeleton screen to be loaded which would resemble the PokeView component which would be cooler than loading icons :))) */
+  //   return <PokeSkeleton />;
+  // }
 
   /*
   Also must keep in mind for react hooks to be rendered before any condition statements(as like the loading one which returns PokeSkeleton component even before useEffect executes)
@@ -108,87 +109,96 @@ const FrontBanner = ({
   }
 
   return (
-    !isLoading &&
-    !data && (
-      <section className="mt-15 pb-30 Banner bg-linear-to-r from-[#FFCB05]/70 to-[#3466AF]/70 pt-18 w-full min-h-screen bg-cover bg-center">
-        <div className="flex justify-center">
-          <div className="flex flex-col justify-center items-center gap-10">
-            <div className="ban-text text-8xl text-yellow-950/85 font-bold">
-              Pokemon Encyclopedia
-              <div className="ban-text mt-4 ml-69 pt-2 text-5xl text-red-900/95 font-bold">
-                Search For a Pokemon
+    <div>
+      {isLoading && !hasSearchedMulti && <PokeSkeleton />}
+
+      {!isLoading && !data && (
+        <section className="mt-15 pb-30 Banner bg-linear-to-r from-[#FFCB05]/70 to-[#3466AF]/70 pt-18 w-full min-h-screen bg-cover bg-center">
+          <div className="flex justify-center">
+            <div className="flex flex-col justify-center items-center gap-10">
+              <div className="ban-text text-8xl text-yellow-950/85 font-bold">
+                Pokemon Encyclopedia
+                <div className="ban-text mt-4 ml-69 pt-2 text-5xl text-red-900/95 font-bold">
+                  Search For a Pokemon
+                </div>
               </div>
+              <div className="flex flex-row searchBar justify-center gap-5">
+                <input
+                  className="rounded-3xl bg-amber-200 h-12 w-70 px-6 font-l text-indigo-900 placeholder:text-m placeholder:text-indigo-950"
+                  placeholder="Search"
+                  type="text"
+                  onChange={(e) => {
+                    setpokeName(e.target.value);
+                  }}
+                />
+                <button
+                  onClick={handlePokeSubmit}
+                  className="rounded-3xl text-xl font-bold w-35 cursor-pointer hover:bg-amber-600 bg-amber-500 text-white text-bold p-1"
+                >
+                  Submit
+                </button>
+              </div>
+
+              {hasSearchedMulti && isLoading && (
+                <div>
+                  <PokeGallerySkeleton pokemons={pokeNamesArr} />
+                </div>
+              )}
+
+              {hasSearchedMulti && !isLoading && (
+                <div>
+                  <PokeGallery pokemons={multiPokeData} />
+                  <div className="flex justify-center">
+                    <button
+                      onClick={morePokesClicked}
+                      className="text-xl hover:cursor-pointer font-bold font-sans text-white bg-amber-500 p-4 border-2 border-amber-50 rounded-3xl"
+                    >
+                      Want More ?
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {isOnGallery && (
+                <div className="flex searchBar flex-col gap-10">
+                  <div className="gallery-text text-4xl text-yellow-950/85 font-bold">
+                    Search For multiple Pokemon Gallery at once
+                  </div>
+
+                  <div className="flex flex-row searchBar justify-center gap-5">
+                    <input
+                      className="rounded-3xl bg-amber-200 h-15 w-90 px-6 font-l text-indigo-900 placeholder:text-m placeholder:text-indigo-950"
+                      placeholder="Search with Space"
+                      type="text"
+                      onChange={(e) => {
+                        setpokeName(e.target.value);
+                      }}
+                    />
+                    <button
+                      onClick={handleMultiPokeSubmit}
+                      className="rounded-3xl text-xl font-bold w-35 cursor-pointer hover:bg-amber-600 bg-amber-500 text-white text-bold p-1"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {emptyError && (
+                <div className="emptyTexterror text-2xl text-red-500 font-bold font-serif">
+                  Pokemon Name cannot be empty
+                </div>
+              )}
+              {incorrectPokeName && (
+                <div className="incorrectPoke text-3xl text-red-500 font-bold font-serif">
+                  Please Enter a Valid Pokemon Name or Pokedex No.
+                </div>
+              )}
             </div>
-            <div className="flex flex-row searchBar justify-center gap-5">
-              <input
-                className="rounded-3xl bg-amber-200 h-12 w-70 px-6 font-l text-indigo-900 placeholder:text-m placeholder:text-indigo-950"
-                placeholder="Search"
-                type="text"
-                onChange={(e) => {
-                  setpokeName(e.target.value);
-                }}
-              />
-              <button
-                onClick={handlePokeSubmit}
-                className="rounded-3xl text-xl font-bold w-35 cursor-pointer hover:bg-amber-600 bg-amber-500 text-white text-bold p-1"
-              >
-                Submit
-              </button>
-            </div>
-
-            {hasSearchedMulti && (
-              <div>
-                <PokeGallery pokemons={multiPokeData} />
-                <div className="flex justify-center">
-                  <button
-                    onClick={morePokesClicked}
-                    className="text-xl hover:cursor-pointer font-bold font-sans text-white bg-amber-500 p-4 border-2 border-amber-50 rounded-3xl"
-                  >
-                    Want More ?
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {isOnGallery && (
-              <div className="flex searchBar flex-col gap-10">
-                <div className="gallery-text text-4xl text-yellow-950/85 font-bold">
-                  Search For multiple Pokemon Gallery at once
-                </div>
-
-                <div className="flex flex-row searchBar justify-center gap-5">
-                  <input
-                    className="rounded-3xl bg-amber-200 h-15 w-90 px-6 font-l text-indigo-900 placeholder:text-m placeholder:text-indigo-950"
-                    placeholder="Search with Space"
-                    type="text"
-                    onChange={(e) => {
-                      setpokeName(e.target.value);
-                    }}
-                  />
-                  <button
-                    onClick={handleMultiPokeSubmit}
-                    className="rounded-3xl text-xl font-bold w-35 cursor-pointer hover:bg-amber-600 bg-amber-500 text-white text-bold p-1"
-                  >
-                    Submit
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {emptyError && (
-              <div className="emptyTexterror text-2xl text-red-500 font-bold font-serif">
-                Pokemon Name cannot be empty
-              </div>
-            )}
-            {incorrectPokeName && (
-              <div className="incorrectPoke text-3xl text-red-500 font-bold font-serif">
-                Please Enter a Valid Pokemon Name or Pokedex No.
-              </div>
-            )}
           </div>
-        </div>
-      </section>
-    )
+        </section>
+      )}
+    </div>
   );
 };
 
