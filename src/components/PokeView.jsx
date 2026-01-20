@@ -56,7 +56,7 @@ const PokeView = ({ fetchedData }) => {
         <div className="pokeCard flex flex-row justify-center">
           <div
             style={mainCardStyles}
-            className="poke-head flex flex-col w-105 rounded-3xl border-4 border-teal-50 p-4 gap-3 justify-around"
+            className="poke-head shadow-md flex flex-col w-105 rounded-3xl border-4 border-teal-50 p-4 gap-3 justify-around"
           >
             <img
               src={fetchedData.sprites.other["official-artwork"].front_default}
@@ -134,7 +134,7 @@ const PokeView = ({ fetchedData }) => {
 
                 <div className="strongWeak text-2xl">
                   <div className="text-red-500 underline underline-offset-4 font-extrabold">
-                    Strong-Against :
+                    Strong-Against
                   </div>{" "}
                   {getTypeMatchs(...type_s)[1].map(
                     (type, idx) =>
@@ -144,14 +144,14 @@ const PokeView = ({ fetchedData }) => {
                             style={{
                               backgroundColor: colourBasedTypes(type),
                             }}
-                            className="h-6 w-6 rounded-full border border-black/20 shadow-md"
+                            className="h-6 w-6 mt-1 rounded-full border border-black/20 shadow-md"
                           ></div>
                           <div className="text-shadow-gray-700"> {type} </div>
                         </div>
                       ),
                   )}
                   <div className="text-red-500 underline underline-offset-4 font-extrabold">
-                    Weak-Against :
+                    Weak-Against
                   </div>{" "}
                   {getTypeMatchs(...type_s)[0].map(
                     (type, idx) =>
@@ -161,7 +161,7 @@ const PokeView = ({ fetchedData }) => {
                             style={{
                               backgroundColor: colourBasedTypes(type),
                             }}
-                            className="h-6 w-6 rounded-full border border-black/20 shadow-md"
+                            className="h-6 w-6 mt-1 rounded-full border border-black/20 shadow-md"
                           ></div>
                           <div className="text-shadow-gray-700"> {type} </div>
                         </div>
