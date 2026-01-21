@@ -42,9 +42,11 @@ const PokeView = ({ fetchedData }) => {
   let mainCardStyles = {
     backgroundColor: "#F5F7FB",
     filter: "brightness(0.85)",
+    boxShadow: "10px 10px 15px #888888",
   };
   let cardStyles = {
     borderColor: "#FFDE00",
+    boxShadow: "10px 10px 15px #888888",
   };
 
   return (
@@ -68,7 +70,7 @@ const PokeView = ({ fetchedData }) => {
             <div className="name flex justify-center font-sans">
               <div
                 style={pokeNameStyles}
-                className="name p-4 text-3xl rounded-4xl font-bold "
+                className="name p-4 text-5xl rounded-4xl font-bold "
               >
                 {fetchedData.forms[0].name}
               </div>
@@ -133,39 +135,53 @@ const PokeView = ({ fetchedData }) => {
                 ))}
 
                 <div className="strongWeak text-2xl">
-                  <div className="text-red-500 underline underline-offset-4 font-extrabold">
-                    Strong-Against
-                  </div>{" "}
-                  {getTypeMatchs(...type_s)[1].map(
-                    (type, idx) =>
-                      idx < 2 && (
-                        <div className="mt-1 flex gap-3">
-                          <div
-                            style={{
-                              backgroundColor: colourBasedTypes(type),
-                            }}
-                            className="h-6 w-6 mt-1 rounded-full border border-black/20 shadow-md"
-                          ></div>
-                          <div className="text-shadow-gray-700"> {type} </div>
-                        </div>
-                      ),
+                  {getTypeMatchs(...type_s)[1].length > 0 && (
+                    <div>
+                      <div className="text-teal-700 underline underline-offset-4 font-extrabold">
+                        Strong-Against
+                      </div>{" "}
+                      {getTypeMatchs(...type_s)[1].map(
+                        (type, idx) =>
+                          idx < 2 && (
+                            <div className="mt-1 flex gap-3">
+                              <div
+                                style={{
+                                  backgroundColor: colourBasedTypes(type),
+                                }}
+                                className="h-6 w-6 mt-1 rounded-full border border-black/20 shadow-md"
+                              ></div>
+                              <div className="text-shadow-gray-700">
+                                {" "}
+                                {type}{" "}
+                              </div>
+                            </div>
+                          ),
+                      )}
+                    </div>
                   )}
-                  <div className="text-red-500 underline underline-offset-4 font-extrabold">
-                    Weak-Against
-                  </div>{" "}
-                  {getTypeMatchs(...type_s)[0].map(
-                    (type, idx) =>
-                      idx < 2 && (
-                        <div className="mt-1 flex gap-3">
-                          <div
-                            style={{
-                              backgroundColor: colourBasedTypes(type),
-                            }}
-                            className="h-6 w-6 mt-1 rounded-full border border-black/20 shadow-md"
-                          ></div>
-                          <div className="text-shadow-gray-700"> {type} </div>
-                        </div>
-                      ),
+                  {getTypeMatchs(...type_s)[0].length > 0 && (
+                    <div>
+                      <div className="text-teal-700 underline underline-offset-4 font-extrabold">
+                        Weak-Against
+                      </div>{" "}
+                      {getTypeMatchs(...type_s)[0].map(
+                        (type, idx) =>
+                          idx < 2 && (
+                            <div className="mt-1 flex gap-3">
+                              <div
+                                style={{
+                                  backgroundColor: colourBasedTypes(type),
+                                }}
+                                className="h-6 w-6 mt-1 rounded-full border border-black/20 shadow-md"
+                              ></div>
+                              <div className="text-shadow-gray-700">
+                                {" "}
+                                {type}{" "}
+                              </div>
+                            </div>
+                          ),
+                      )}
+                    </div>
                   )}
                 </div>
               </div>
@@ -181,11 +197,16 @@ const PokeView = ({ fetchedData }) => {
 
             <div className="mt-7 content flex flex-row justify-center text-3xl font-bold font-sans">
               <div className="flex flex-col gap-4 justify-around">
-                {fetchedData.abilities.map(({ ability, slot }) => (
+                {fetchedData.abilities.map(({ ability, is_hidden, slot }) => (
                   <ul key={slot}>
                     <li className="flex gap-3 justfiy-center">
-                      <div className="border-2 bg-gray-800 rounded-2xl h-6 w-6 p-2 mt-2"></div>
+                      <div className="border-2 bg-gray-800 rounded-2xl h-4 w-4 p-2 mt-3"></div>
                       {ability.name}
+                      {is_hidden && (
+                        <span className="ml-2 mt-4 text-sm text-red-600">
+                          (Hidden)
+                        </span>
+                      )}
                     </li>
                   </ul>
                 ))}
@@ -195,7 +216,19 @@ const PokeView = ({ fetchedData }) => {
           <div
             style={cardStyles}
             className="h-110 p-5 bg-gray-300 w-80 border-6 rounded-4xl"
-          ></div>
+          >
+            <div className="header flex justify-center text-4xl font-extrabold">
+              PHYSICAL
+            </div>
+
+            <div className="flex justify-center text-3xl mt-8 font-bold font-sans ">
+              <div className="flex flex-col justify-around gap-5">
+                <div>Height: {fetchedData.height / 10}m</div>
+                <div>Weight: {fetchedData.weight / 10}kg</div>
+                <div>Base EXP: {fetchedData.base_experience}</div>
+              </div>
+            </div>
+          </div>
           <div
             style={cardStyles}
             className="h-110 p-5 bg-gray-300 w-80 border-6 rounded-4xl"

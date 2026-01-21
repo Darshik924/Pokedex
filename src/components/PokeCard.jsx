@@ -16,10 +16,11 @@ const PokeCard = ({ pokeData }) => {
   let mainCardStyles = {
     backgroundColor: "#edf2f7",
     filter: "brightness(0.85)",
+    boxShadow: "10px 10px 15px #888888",
   };
 
   return (
-    <div className="pokeCard animate-fadeIn">
+    <div className="pokeCard animate-fadeIn ">
       <div
         style={mainCardStyles}
         className="poke-head h-140 flex flex-col w-90 rounded-3xl border-4 border-teal-50 p-4 gap-1 justify-around"
