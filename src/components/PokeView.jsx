@@ -47,13 +47,15 @@ const PokeView = ({ fetchedData }) => {
     boxShadow: "10px 10px 15px #888888",
   };
   let cardStyles = {
-    borderColor: "#FFDE00",
+    borderColor: `${text}`,
     boxShadow: "10px 10px 15px #888888",
     color: `${text}`,
   };
   let cardsHeaderStyles = {
     border: `4px solid ${text}`,
     borderRadius: "20px",
+    color: "white",
+    backgroundColor: `${text}`,
   };
 
   return (
@@ -76,8 +78,8 @@ const PokeView = ({ fetchedData }) => {
 
             <div className="name flex justify-center font-sans">
               <div
-                style={pokeNameStyles}
-                className="name p-4 text-5xl rounded-4xl font-bold "
+                style={cardsHeaderStyles}
+                className="name p-4 text-5xl rounded-4xl font-extrabold "
               >
                 {fetchedData.forms[0].name}
               </div>
@@ -92,7 +94,7 @@ const PokeView = ({ fetchedData }) => {
         </div>
         {/* I choosed not to use PokeCard component as i wanted to display things differently*/}
 
-        <div className="cards max-w-350 mt-15 p-5 border-amber-400 flex flex-row gap-8 justify-around">
+        <div className="cards max-w-350 mt-15 p-5 flex flex-row gap-8 justify-around">
           <div
             style={cardStyles}
             className="h-110 p-5 bg-gray-300 w-80 border-6 rounded-4xl"
@@ -111,8 +113,9 @@ const PokeView = ({ fetchedData }) => {
                 <div className="flex flex-col gap-5 justify-around">
                   {pokeStats.map(({ stat, base_stat, id }) => (
                     <ul key={id}>
-                      <li>
-                        {stat} -- {base_stat}
+                      <li className="flex justify-between gap-4 text-teal-50 pl-3 border-teal-50 pr-3 pt-1 pb-1 border-2 rounded-xl bg-gray-500">
+                        <div className="font-sans">{stat}</div>
+                        <div>{base_stat}</div>
                       </li>
                     </ul>
                   ))}
@@ -122,7 +125,7 @@ const PokeView = ({ fetchedData }) => {
           </div>
           <div
             style={pokeNameStyles}
-            className="h-110 p-5 bg-gray-300 w-80 border-[#FFDE00] border-6 rounded-4xl"
+            className="h-110 p-5 bg-gray-300 w-80 border-6 rounded-4xl"
           >
             <div
               style={cardsHeaderStyles}
@@ -243,10 +246,28 @@ const PokeView = ({ fetchedData }) => {
             </div>
 
             <div className="flex justify-center text-3xl mt-8 font-bold font-sans ">
-              <div className="flex flex-col justify-around gap-5">
-                <div>Height: {fetchedData.height / 10}m</div>
-                <div>Weight: {fetchedData.weight / 10}kg</div>
-                <div>Base EXP: {fetchedData.base_experience}</div>
+              <div className="flex flex-col justify-around gap-7">
+                <div className="flex justify-between gap-4 text-teal-50 pl-1 text-2xl border-teal-50 pr-1 pt-1 pb-1 border-2 rounded-xl bg-gray-500">
+                  <div>Height</div>
+                  <div className="text-yellow-200">
+                    {" "}
+                    {fetchedData.height / 10}m
+                  </div>
+                </div>
+                <div className="flex justify-between gap-4 text-teal-50 pl-1 text-2xl border-teal-50 pr-1 pt-1 pb-1 border-2 rounded-xl bg-gray-500">
+                  <div>Weight</div>
+                  <div className="text-yellow-200">
+                    {" "}
+                    {fetchedData.weight / 10}kg
+                  </div>
+                </div>
+                <div className="flex justify-between gap-4 text-teal-50 text-2xl pl-1 text-2xl border-teal-50 pr-1 pt-1 pb-1 border-2 rounded-xl bg-gray-500">
+                  <div>Base EXP</div>
+                  <div className="text-yellow-200">
+                    {" "}
+                    {fetchedData.base_experience}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -262,22 +283,27 @@ const PokeView = ({ fetchedData }) => {
             </div>
 
             <div className="flex justify-center">
-              <div className="flex flex-col gap-1 justify-around mt-1 ">
+              <div className="flex flex-col gap-1 justify-around mt-2 ">
                 <img
                   src={fetchedData.sprites.front_default}
                   alt="normal"
-                  className="h-35 w-41 border-4 border-amber-300 rounded-3xl bg-[#1A202C]"
+                  className="h-35 w-41 border-4 rounded-3xl bg-[#1A202C]"
                 />
-                <div className="text-xl text-teal-900  font-sans font-bold  ml-12">
-                  Normal
+                <div className="flex justify-center">
+                  <div className="text-l font-sans font-bold w-28 text-teal-50 border-teal-50 pl-2 pr-2 flex justify-center border-2 rounded-xl bg-gray-500">
+                    Normal
+                  </div>
                 </div>
+
                 <img
                   src={fetchedData.sprites.front_shiny}
                   alt="shiny"
-                  className="h-35 w-41 border-4 border-amber-300 rounded-3xl bg-[#1A202C]"
+                  className="h-35 w-41 border-4 rounded-3xl bg-[#1A202C]"
                 />
-                <div className="text-xl text-teal-900 font-sans font-bold  ml-12">
-                  Shiny
+                <div className="flex justify-center">
+                  <div className="text-l font-sans font-bold w-28 text-teal-50 border-teal-50 pl-2 pr-2 flex justify-center border-2 rounded-xl bg-gray-500">
+                    Shiny
+                  </div>
                 </div>
               </div>
             </div>

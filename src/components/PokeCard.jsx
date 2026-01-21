@@ -18,6 +18,12 @@ const PokeCard = ({ pokeData }) => {
     filter: "brightness(0.85)",
     boxShadow: "10px 10px 15px #888888",
   };
+  let cardsHeaderStyles = {
+    border: `4px solid ${text}`,
+    borderRadius: "20px",
+    color: "white",
+    backgroundColor: `${text}`,
+  };
 
   return (
     <div className="pokeCard animate-fadeIn ">
@@ -36,14 +42,17 @@ const PokeCard = ({ pokeData }) => {
 
         <div className="name flex justify-center font-sans">
           <div
-            style={pokeNameStyles}
+            style={cardsHeaderStyles}
             className="name p-2 text-4xl rounded-4xl font-bold "
           >
             {pokeData.forms[0].name}
           </div>
         </div>
 
-        <div className="header flex justify-center text-xl font-extrabold">
+        <div
+          style={cardsHeaderStyles}
+          className="header flex justify-center text-xl font-extrabold"
+        >
           TYPE(S)
         </div>
         <div className="flex flex-col gap-2 justify-around">

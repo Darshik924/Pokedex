@@ -9,6 +9,11 @@
   font-size: 22px;
 }
 
+.pokeCard {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
 
 .navbar {
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.365);
