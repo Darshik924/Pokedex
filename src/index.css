@@ -5,6 +5,11 @@
   width: 120px;
 }
 
+.hidden-class {
+  font-size: 22px;
+}
+
+
 .navbar {
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.365);
 }

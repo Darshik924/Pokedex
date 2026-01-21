@@ -28,6 +28,8 @@ const PokeView = ({ fetchedData }) => {
     { id: 5, stat: "spDef", base_stat: spDef_st },
   ];
 
+  const [weakAgainst, strongAgainst] = getTypeMatchs(...type_s);
+
   let bannerStyles = {
     background: fetchedData
       ? gradient
@@ -47,6 +49,11 @@ const PokeView = ({ fetchedData }) => {
   let cardStyles = {
     borderColor: "#FFDE00",
     boxShadow: "10px 10px 15px #888888",
+    color: `${text}`,
+  };
+  let cardsHeaderStyles = {
+    border: `4px solid ${text}`,
+    borderRadius: "20px",
   };
 
   return (
@@ -94,7 +101,10 @@ const PokeView = ({ fetchedData }) => {
               style={pokeNameStyles}
               className="flex flex-col justify-around text-2xl font-sans font-bold"
             >
-              <div className="header flex justify-center text-4xl font-extrabold">
+              <div
+                style={cardsHeaderStyles}
+                className="header flex justify-center text-4xl font-extrabold"
+              >
                 STATS
               </div>
               <div className="stats-content mt-5 flex justify-center text-3xl">
@@ -114,7 +124,10 @@ const PokeView = ({ fetchedData }) => {
             style={pokeNameStyles}
             className="h-110 p-5 bg-gray-300 w-80 border-[#FFDE00] border-6 rounded-4xl"
           >
-            <div className="header flex justify-center text-4xl font-extrabold">
+            <div
+              style={cardsHeaderStyles}
+              className="header flex justify-center text-4xl font-extrabold"
+            >
               TYPE(S)
             </div>
 
@@ -135,12 +148,12 @@ const PokeView = ({ fetchedData }) => {
                 ))}
 
                 <div className="strongWeak text-2xl">
-                  {getTypeMatchs(...type_s)[1].length > 0 && (
+                  {strongAgainst.length > 0 && (
                     <div>
                       <div className="text-teal-700 underline underline-offset-4 font-extrabold">
                         Strong-Against
                       </div>{" "}
-                      {getTypeMatchs(...type_s)[1].map(
+                      {strongAgainst.map(
                         (type, idx) =>
                           idx < 2 && (
                             <div className="mt-1 flex gap-3">
@@ -159,12 +172,12 @@ const PokeView = ({ fetchedData }) => {
                       )}
                     </div>
                   )}
-                  {getTypeMatchs(...type_s)[0].length > 0 && (
+                  {weakAgainst.length > 0 && (
                     <div>
                       <div className="text-teal-700 underline underline-offset-4 font-extrabold">
                         Weak-Against
                       </div>{" "}
-                      {getTypeMatchs(...type_s)[0].map(
+                      {weakAgainst.map(
                         (type, idx) =>
                           idx < 2 && (
                             <div className="mt-1 flex gap-3">
@@ -191,7 +204,10 @@ const PokeView = ({ fetchedData }) => {
             style={cardStyles}
             className="h-110 p-5 bg-gray-300 w-80 border-6 rounded-4xl"
           >
-            <div className="header flex justify-center text-4xl font-extrabold">
+            <div
+              style={cardsHeaderStyles}
+              className="header flex justify-center text-4xl font-extrabold"
+            >
               ABILITIES
             </div>
 
@@ -201,12 +217,14 @@ const PokeView = ({ fetchedData }) => {
                   <ul key={slot}>
                     <li className="flex gap-3 justfiy-center">
                       <div className="border-2 bg-gray-800 rounded-2xl h-4 w-4 p-2 mt-3"></div>
-                      {ability.name}
-                      {is_hidden && (
-                        <span className="ml-2 mt-4 text-sm text-red-600">
-                          (Hidden)
-                        </span>
-                      )}
+                      <div className="flex flex-col gap-1">
+                        {ability.name}
+                        {is_hidden && (
+                          <span className="ml-3 hidden-class text-red-600">
+                            (Hidden)
+                          </span>
+                        )}
+                      </div>
                     </li>
                   </ul>
                 ))}
@@ -217,7 +235,10 @@ const PokeView = ({ fetchedData }) => {
             style={cardStyles}
             className="h-110 p-5 bg-gray-300 w-80 border-6 rounded-4xl"
           >
-            <div className="header flex justify-center text-4xl font-extrabold">
+            <div
+              style={cardsHeaderStyles}
+              className="header flex justify-center text-4xl font-extrabold"
+            >
               PHYSICAL
             </div>
 
@@ -232,7 +253,35 @@ const PokeView = ({ fetchedData }) => {
           <div
             style={cardStyles}
             className="h-110 p-5 bg-gray-300 w-80 border-6 rounded-4xl"
-          ></div>
+          >
+            <div
+              style={cardsHeaderStyles}
+              className="header flex justify-center text-4xl font-extrabold"
+            >
+              SPRITES
+            </div>
+
+            <div className="flex justify-center">
+              <div className="flex flex-col gap-1 justify-around mt-1 ">
+                <img
+                  src={fetchedData.sprites.front_default}
+                  alt="normal"
+                  className="h-35 w-41 border-4 border-amber-300 rounded-3xl bg-[#1A202C]"
+                />
+                <div className="text-xl text-teal-900  font-sans font-bold  ml-12">
+                  Normal
+                </div>
+                <img
+                  src={fetchedData.sprites.front_shiny}
+                  alt="shiny"
+                  className="h-35 w-41 border-4 border-amber-300 rounded-3xl bg-[#1A202C]"
+                />
+                <div className="text-xl text-teal-900 font-sans font-bold  ml-12">
+                  Shiny
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
