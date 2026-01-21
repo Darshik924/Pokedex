@@ -261,7 +261,7 @@ const PokeView = ({ fetchedData }) => {
                     {fetchedData.weight / 10}kg
                   </div>
                 </div>
-                <div className="flex justify-between gap-4 text-teal-50 text-2xl pl-1 text-2xl border-teal-50 pr-1 pt-1 pb-1 border-2 rounded-xl bg-gray-500">
+                <div className="flex justify-between gap-4 text-teal-50 pl-1 text-2xl border-teal-50 pr-1 pt-1 pb-1 border-2 rounded-xl bg-gray-500">
                   <div>Base EXP</div>
                   <div className="text-yellow-200">
                     {" "}
