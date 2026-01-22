@@ -143,7 +143,7 @@ const FrontBanner = ({
                 </button>
               </div>
 
-              {hasSearchedMulti && !isLoading && (
+              {hasSearchedMulti && !isLoading && !incorrectPokeName && (
                 <div>
                   <PokeGallery pokemons={multiPokeData} />
                   <div className="flex justify-center">
