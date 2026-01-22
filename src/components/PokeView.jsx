@@ -79,7 +79,7 @@ const PokeView = ({ fetchedData }) => {
             <div className="name flex justify-center font-sans">
               <div
                 style={cardsHeaderStyles}
-                className="name p-4 text-5xl rounded-4xl font-extrabold "
+                className="name p-1 text-5xl rounded-4xl font-extrabold "
               >
                 {fetchedData.forms[0].name}
               </div>
