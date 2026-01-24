@@ -33,6 +33,11 @@
   }
 }
 
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .searchBar {
   opacity: 0;
   transform: translateX(-2px);

@@ -14,6 +14,7 @@ const App = () => {
         isOnPokeView={isOnPokeView}
         setIsOnGallery={setIsOnGalleryNew}
         bgColor={navTheme}
+        isOnGallery={isOnGalleryNew}
       />
       <FrontBanner
         setIsOnPokeView={setIsOnPokeView}

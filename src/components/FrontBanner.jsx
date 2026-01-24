@@ -123,7 +123,7 @@ const FrontBanner = ({
               <div className="ban-text text-8xl text-yellow-950/85 font-bold">
                 Pokemon Encyclopedia
                 <div className="ban-text mt-4 ml-69 pt-2 text-5xl text-red-900/95 font-bold">
-                  Search For a Pokemon
+                  Search For a Pokemonn to begin
                 </div>
               </div>
               <div className="flex flex-row searchBar justify-center gap-5">
@@ -131,11 +131,17 @@ const FrontBanner = ({
                   className="rounded-3xl bg-amber-200 h-12 w-70 px-6 font-l text-indigo-900 placeholder:text-m placeholder:text-indigo-950"
                   placeholder="Search"
                   type="text"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handlePokeSubmit();
+                    }
+                  }}
                   onChange={(e) => {
                     setpokeName(e.target.value);
                   }}
                 />
                 <button
+                  disabled={isLoading}
                   onClick={handlePokeSubmit}
                   className="rounded-3xl text-xl font-bold w-35 cursor-pointer hover:bg-amber-600 bg-amber-500 text-white text-bold p-1"
                 >
@@ -148,6 +154,7 @@ const FrontBanner = ({
                   <PokeGallery pokemons={multiPokeData} />
                   <div className="flex justify-center">
                     <button
+                      disabled={isLoading}
                       onClick={morePokesClicked}
                       className="text-xl hover:cursor-pointer font-bold font-sans text-white bg-amber-500 p-4 border-2 border-amber-50 rounded-3xl"
                     >
@@ -168,11 +175,17 @@ const FrontBanner = ({
                       className="rounded-3xl bg-amber-200 h-15 w-90 px-6 font-l text-indigo-900 placeholder:text-m placeholder:text-indigo-950"
                       placeholder="Search with Space"
                       type="text"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          handleMultiPokeSubmit();
+                        }
+                      }}
                       onChange={(e) => {
                         setpokeName(e.target.value);
                       }}
                     />
                     <button
+                      disabled={isLoading}
                       onClick={handleMultiPokeSubmit}
                       className="rounded-3xl text-xl font-bold w-35 cursor-pointer hover:bg-amber-600 bg-amber-500 text-white text-bold p-1"
                     >

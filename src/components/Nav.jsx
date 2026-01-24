@@ -7,10 +7,9 @@ import { useState, useRef } from "react";
 import pokeTheme from "../assets/pokemon_opening_theme.mp3";
 import Logo from "../assets/logonew4.png";
 
-const Nav = ({ bgColor, setIsOnGallery, isOnPokeView }) => {
+const Nav = ({ bgColor, setIsOnGallery, isOnPokeView, isOnGallery }) => {
   const themeSong = useRef(new Audio(pokeTheme)); // Using useRef will make it create audio object only once and its value will persist across re-renders
   const [isPlaying, setisPlaying] = useState(false);
-  const [place, setPlace] = useState("home");
   const toggleAudio = () => {
     const audio = themeSong.current;
     if (!isPlaying) {
@@ -23,11 +22,11 @@ const Nav = ({ bgColor, setIsOnGallery, isOnPokeView }) => {
     setisPlaying(!isPlaying);
   };
   const iconStyleHome = {
-    color: `${place === "home" ? "#FFCB05" : "white"}`,
+    color: `${isOnGallery ? "white" : "#FFCB05"}`,
     fontSize: "24px",
   };
   const iconStyleComp = {
-    color: `${place === "comparison" ? "#FFCB05" : "white"}`,
+    color: `${isOnGallery ? "#FFCB05" : "white"}`,
     fontSize: "24px",
   };
   const iconStyle = {
@@ -43,13 +42,11 @@ const Nav = ({ bgColor, setIsOnGallery, isOnPokeView }) => {
   };
 
   const homeClick = () => {
-    setPlace("home");
     window.location.reload();
   };
   const enterComparison = () => {
-    setPlace("comparison");
     if (isOnPokeView) {
-      alert("Enter Gallery mode on Home Page");
+      alert("Please go back to home to open gallery");
     }
     setIsOnGallery(true);
   };
