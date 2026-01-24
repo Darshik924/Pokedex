@@ -1,5 +1,3 @@
-/* I would like to sincerely thank chat-GPT for sharing with me his vast amounts of knowledge on POKemon and their types XDD */
-
 const typeGradients = {
   /* ---------- SINGLE TYPES ---------- */
   normal: {
