@@ -1,21 +1,54 @@
-# Pokedex - Web
+# Pokédex Web Application
 
-This is a Pokedex Project made by Darshik Ladhe as a GDG club problem statement for IIT INDORE
+This is a **Pokédex Web Application** developed by **Darshik Ladhe** as part of a **GDG Club problem statement for IIT Indore**.
 
-It is a Frontend only Application and Only uses an Api Call
+The project is a **frontend-only application** that fetches and displays Pokémon data using external API calls, with no backend services involved.
 
-Used the official PokeApi u can find in src/api/
+---
 
-### Key Features
+## API Usage
 
-1. Features a search bar to directly search the name of the Pokemon and then displays the details cleanly.
-2. Has a Gallery mode on the Navbar (Gallery mode icon) which would allow you to search and see the pokemons as a Gallery on site.
-3. You can also Search for the pokemon id or the Pokedex id (official pokemon
-   id) which would give you the same result as if it was for the pokemon name.
-4. You can also see the evolution chain for the Pokemon but only when you searched for only 1 pokemon and not multiple gallery mode
+The application uses the **official PokéAPI**.  
+All API-related logic is located in:
 
-#### For Pokemons Like EEVEE (who have multiple evolutions possible), The site will display only one of them and not all, I will add branchings to the chaining later if recommended
+src/api/
 
-Tech Stacks: React JS, tailwindcss
+---
 
-Hope You Liked my work : `)`
+## Key Features
+
+- **Search Functionality**  
+  Search Pokémon by name, Pokémon ID, or official Pokédex ID. All search methods return consistent and accurate results.
+
+- **Gallery Mode**  
+  Accessible via the Gallery icon in the navigation bar, allowing users to browse and search Pokémon in a clean, gallery-style layout.
+
+- **Detailed Pokémon View**  
+  When a single Pokémon is searched, the application displays detailed information along with its evolution chain (if available).
+
+- **Evolution Chain Support**  
+  Evolution chains are displayed only for single Pokémon searches. Gallery mode does not show evolution chains.
+
+  For Pokémon with multiple possible evolution paths (such as Eevee), the application currently displays one evolution path. Support for branching evolution chains may be added in future updates.
+
+---
+
+## Tech Stack
+
+- React.js
+- Tailwind CSS
+- PokéAPI
+
+---
+
+## Project Scope
+
+- Frontend-only implementation
+- No backend or authentication
+- Focused on clean UI, usability, and efficient API handling
+
+---
+
+## Acknowledgements
+
+Thank you for taking the time to explore this project. Feedback and suggestions are always welcome!
