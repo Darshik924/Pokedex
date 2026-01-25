@@ -13,4 +13,17 @@ const fetchPokeData = async (name) => {
   return dataIntermed;
 };
 
-export { fetchPokeData };
+async function fetchEvoData(params) {
+  try {
+    const speciesRes = await fetch(params.species.url);
+    const speciesData = await speciesRes.json();
+
+    const evoRes = await fetch(speciesData.evolution_chain.url);
+    const evoData = await evoRes.json();
+    return evoData;
+  } catch (err) {
+    return "ERROR";
+  }
+}
+
+export { fetchPokeData, fetchEvoData };
