@@ -67,7 +67,7 @@ const PokeView = ({ fetchedData }) => {
         <div className="pokeCard flex flex-row justify-center">
           <div
             style={mainCardStyles}
-            className="poke-head shadow-md flex flex-col w-105 rounded-3xl border-4 border-teal-50 p-4 gap-3 justify-around"
+            className="poke-head pokeCards-anim shadow-md flex flex-col w-105 rounded-3xl border-4 border-teal-50 p-4 gap-3 justify-around"
           >
             <img
               src={fetchedData.sprites.other["official-artwork"].front_default}
@@ -97,7 +97,7 @@ const PokeView = ({ fetchedData }) => {
         <div className="cards max-w-350 mt-15 p-5 flex flex-row gap-8 justify-around">
           <div
             style={cardStyles}
-            className="h-110 p-5 bg-gray-300 w-80 border-6 rounded-4xl"
+            className="h-110 pokeCards-anim p-5 bg-gray-300 w-80 border-6 rounded-4xl"
           >
             <div
               style={pokeNameStyles}
@@ -125,7 +125,7 @@ const PokeView = ({ fetchedData }) => {
           </div>
           <div
             style={pokeNameStyles}
-            className="h-110 p-5 bg-gray-300 w-80 border-6 rounded-4xl"
+            className="h-110 pokeCards-anim p-5 bg-gray-300 w-80 border-6 rounded-4xl"
           >
             <div
               style={cardsHeaderStyles}
@@ -205,7 +205,7 @@ const PokeView = ({ fetchedData }) => {
           </div>
           <div
             style={cardStyles}
-            className="h-110 p-5 bg-gray-300 w-80 border-6 rounded-4xl"
+            className="h-110 pokeCards-anim p-5 bg-gray-300 w-80 border-6 rounded-4xl"
           >
             <div
               style={cardsHeaderStyles}
@@ -236,7 +236,7 @@ const PokeView = ({ fetchedData }) => {
           </div>
           <div
             style={cardStyles}
-            className="h-110 p-5 bg-gray-300 w-80 border-6 rounded-4xl"
+            className="h-110 pokeCards-anim p-5 bg-gray-300 w-80 border-6 rounded-4xl"
           >
             <div
               style={cardsHeaderStyles}
@@ -273,7 +273,7 @@ const PokeView = ({ fetchedData }) => {
           </div>
           <div
             style={cardStyles}
-            className="h-110 p-5 bg-gray-300 w-80 border-6 rounded-4xl"
+            className="h-110 pokeCards-anim  p-5 bg-gray-300 w-80 border-6 rounded-4xl"
           >
             <div
               style={cardsHeaderStyles}

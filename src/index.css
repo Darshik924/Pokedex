@@ -22,7 +22,7 @@
   transition: background 0.5s ease;
 }
 
-@keyframes HeroAnimActive {
+@keyframes BannerAnim {
   from {
     opacity: 0;
     transform: translateY(0);
@@ -52,7 +52,7 @@ button:disabled {
 }
 
 .Banner {
-  animation: HeroAnimActive 0.5s ease;
+  animation: BannerAnim 0.5s ease;
 }
 
 @keyframes pulse {
@@ -76,6 +76,38 @@ button:disabled {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+}
+@keyframes fadeInCards {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes cardsHover {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-10px);
+  }
+}
+
+.pokeCards-anim {
+  animation: fadeInCards 0.6s ease-in-out 0s 1;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.pokeCards-anim:hover {
+  transform: translateY(-12px);
+  box-shadow: 15px 15px 25px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
 }
 
 .animate-fadeIn {
