@@ -17,3 +17,5 @@ Used the official PokeApi u can find in src/api/
 #### For Pokemons Like EEVEE (who have multiple evolutions possible), The site will display only one of them and not all, I will add branchings to the chaining later if recommended
 
 Tech Stacks: React JS, tailwindcss
+
+Hope You Liked my work : `)`
