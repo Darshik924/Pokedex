@@ -7,10 +7,11 @@ import PokeGallery from "./PokeGallery.jsx";
 import PokeGallerySkeleton from "./PokeGallerySkeleton.jsx";
 
 const FrontBanner = ({ updateNavTheme, view, setView }) => {
-  const [hasSearchedMulti, setHasSearchedMulti] = useState(false);
+  // const [hasSearchedMulti, setHasSearchedMulti] = useState(false);
   const [pokeName, setpokeName] = useState("");
   const [multiPokeData, setMultiPokeData] = useState([]);
-  const [data, setData] = useState(null);
+  const [data, setData] = useState(0);
+  /* I specifically set my data value to be 0 rather than to be null, Since both are falsy values i will use it to toggle want more submit button ahead */
   const [isLoading, setisLoading] = useState(false);
   const [emptyError, setEmptyError] = useState(false);
   const [incorrectPokeName, setIncorrectPokename] = useState(false);
@@ -46,9 +47,8 @@ const FrontBanner = ({ updateNavTheme, view, setView }) => {
       setEmptyError(false);
       setIncorrectPokename(false);
       setisLoading(true);
-      setHasSearchedMulti(true);
       setData(null);
-      setView(VIEW.HOME);
+      setView(VIEW.GALLERY);
       const names = pokeName.trim().toLowerCase().split(" ");
 
       const pokeDataResult = await Promise.all(
@@ -82,7 +82,8 @@ const FrontBanner = ({ updateNavTheme, view, setView }) => {
 
   const morePokesClicked = async () => {
     setView(VIEW.GALLERY);
-    setData(null);
+
+    setData(0);
   };
 
   /*
@@ -101,9 +102,9 @@ const FrontBanner = ({ updateNavTheme, view, setView }) => {
 
   return (
     <div>
-      {isLoading && !hasSearchedMulti && <PokeSkeleton />}
+      {isLoading && !(view === VIEW.GALLERY) && <PokeSkeleton />}
 
-      {hasSearchedMulti && isLoading && (
+      {view === VIEW.GALLERY && isLoading && (
         <section className="mt-15 pb-30 Banner bg-linear-to-r from-[#FFCB05]/70 to-[#3466AF]/70 pt-18 w-full min-h-screen bg-cover bg-center">
           <PokeGallerySkeleton />
         </section>
@@ -116,7 +117,7 @@ const FrontBanner = ({ updateNavTheme, view, setView }) => {
               <div className="ban-text text-8xl text-yellow-950/85 font-bold">
                 Pokemon Encyclopedia
                 <div className="ban-text mt-4 ml-69 pt-2 text-5xl text-red-900/95 font-bold">
-                  Search For a Pokemonn to begin
+                  Search For a Pokemon
                 </div>
               </div>
               <div className="flex flex-row searchBar justify-center gap-5">
@@ -142,22 +143,25 @@ const FrontBanner = ({ updateNavTheme, view, setView }) => {
                 </button>
               </div>
 
-              {hasSearchedMulti && !isLoading && !incorrectPokeName && (
-                <div>
-                  <PokeGallery pokemons={multiPokeData} />
-                  <div className="flex justify-center">
-                    <button
-                      disabled={isLoading}
-                      onClick={morePokesClicked}
-                      className="text-xl hover:cursor-pointer font-bold font-sans text-white bg-amber-500 p-4 border-2 border-amber-50 rounded-3xl"
-                    >
-                      Want More ?
-                    </button>
+              {view === VIEW.GALLERY &&
+                !isLoading &&
+                !incorrectPokeName &&
+                multiPokeData.length > 0 && (
+                  <div>
+                    <PokeGallery pokemons={multiPokeData} />
+                    <div className="flex justify-center">
+                      <button
+                        disabled={isLoading}
+                        onClick={morePokesClicked}
+                        className="text-xl hover:cursor-pointer font-bold font-sans text-white bg-amber-500 p-4 border-2 border-amber-50 rounded-3xl"
+                      >
+                        Want More ?
+                      </button>
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
 
-              {view === VIEW.GALLERY && (
+              {view === VIEW.GALLERY && data === 0 && (
                 <div className="flex searchBar flex-col gap-10">
                   <div className="gallery-text text-4xl text-yellow-950/85 font-bold">
                     Search For multiple Pokemon Gallery at once
