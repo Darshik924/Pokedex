@@ -1,8 +1,64 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { typeGradients, colourBasedTypes, getTypeMatchs } from "../constants";
+import { fetchEvoData, fetchPokeData } from "../api/pokemonApi";
 import PokeCard from "./PokeCard";
+import PokeGallerySkeleton from "./PokeGallerySkeleton";
 
 const PokeView = ({ fetchedData }) => {
+  const [isEvoLoading, setEvoisLoading] = useState(false);
+  const [evolutions, setEvolutions] = useState([]);
+  const [incorrectPokeName, setIncorrectPokename] = useState(false);
+
+  useEffect(() => {
+    if (!fetchedData) {
+      return;
+    }
+
+    const fetchEvolutions = async () => {
+      try {
+        setEvoisLoading(true);
+        const evoData = await fetchEvoData(fetchedData);
+        if (evoData === "ERROR") {
+          setIncorrectPokename(true);
+          /* This error is for error occured during the fetching of evolution chain */
+          return;
+        }
+        const evoNames = getEvolutionNames(evoData.chain);
+        const evoPokemons = await getSeparateEvolutionsArr(evoNames);
+        setEvolutions(evoPokemons);
+      } catch (err) {
+        setIncorrectPokename(true);
+        /* This one corresponds to the error of fetching Pokemons Data (images and all) */
+      } finally {
+        setEvoisLoading(false);
+      }
+    };
+
+    fetchEvolutions();
+  }, [fetchedData]);
+
+  const getSeparateEvolutionsArr = async (evoNames) => {
+    const evoDataP = await Promise.all(
+      evoNames.map((name) => {
+        return fetchPokeData(name);
+      }),
+    );
+
+    return evoDataP;
+  };
+
+  const getEvolutionNames = (chain) => {
+    const evoNames = [];
+
+    let current = chain;
+    while (current) {
+      evoNames.push(current.species.name);
+      current = current.evolves_to[0];
+    }
+    /* SImple Loop to get everybodies first evolution and store them into array(names only) */
+    return evoNames;
+  };
+
   const type_s = fetchedData.types.map(({ type }) => type.name);
   const key = type_s.length === 2 ? `${type_s[0]}-${type_s[1]}` : type_s[0];
   const { nav, gradient, text } = typeGradients[key];
@@ -64,7 +120,7 @@ const PokeView = ({ fetchedData }) => {
       className="mt-15 flex flex-row justify-center Banner pt-18 w-full min-h-screen bg-cover bg-center"
     >
       <div className="flex flex-col justify-around">
-        <div className="pokeCard flex flex-row justify-center">
+        <main className="pokeCard flex flex-row justify-center">
           <div
             style={mainCardStyles}
             className="poke-head pokeCards-anim shadow-md flex flex-col w-105 rounded-3xl border-4 border-teal-50 p-4 gap-3 justify-around"
@@ -91,10 +147,10 @@ const PokeView = ({ fetchedData }) => {
               {str.length === 4 && <div>#{fetchedData.id}</div>}
             </div>
           </div>
-        </div>
+        </main>
         {/* I choosed not to use PokeCard component as i wanted to display things differently*/}
 
-        <div className="cards max-w-350 mt-15 p-5 flex flex-row gap-8 justify-around">
+        <main className="cards max-w-350 mt-15 p-5 flex flex-row gap-8 justify-around">
           <div
             style={cardStyles}
             className="h-110 pokeCards-anim p-5 bg-gray-300 w-80 border-6 rounded-4xl"
@@ -308,7 +364,42 @@ const PokeView = ({ fetchedData }) => {
               </div>
             </div>
           </div>
-        </div>
+        </main>
+
+        <main className="evo-chain mt-18 pb-20 flex flex-col justify-around">
+          <div className="flex justify-center">
+            <div
+              style={cardsHeaderStyles}
+              className="header pokeCards-anim mb-10 w-fit text-7xl p-3 font-extrabold"
+            >
+              EVOLUTION CHAIN
+            </div>
+          </div>
+          <div className="flex mt-10 justify-center gap-14 flex-row">
+            {isEvoLoading && <PokeGallerySkeleton />}
+
+            {incorrectPokeName && (
+              <div className="text-red-500 text-4xl ml-60 mr-56 bg-red-200 flex justify-center border-2 rounded-3xl border-r-red-950 font-bold font-sans p-4">
+                Something went wrong while loading evolution data. Please try
+                refreshing.
+              </div>
+            )}
+
+            {!isEvoLoading &&
+              evolutions &&
+              evolutions.map((pokeData) => {
+                const isCurrent = pokeData.id === fetchedData.id;
+
+                return (
+                  <PokeCard
+                    key={pokeData.id}
+                    isCurrent={isCurrent}
+                    pokeData={pokeData}
+                  />
+                );
+              })}
+          </div>
+        </main>
       </div>
     </section>
   );

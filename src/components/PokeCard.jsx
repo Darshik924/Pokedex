@@ -1,15 +1,13 @@
 import React from "react";
 import { typeGradients, colourBasedTypes } from "../constants";
 
-const PokeCard = ({ pokeData }) => {
+/* Gave a Default Value of false to isCurrent as when it comes from PokeGallery we might not want to need that */
+const PokeCard = ({ pokeData, isCurrent = false }) => {
   const str = `${pokeData.id}`;
   const type_s = pokeData.types.map(({ type }) => type.name);
   const key = type_s.length === 2 ? `${type_s[0]}-${type_s[1]}` : type_s[0];
   const { text } = typeGradients[key];
 
-  let pokeNameStyles = {
-    color: `${text}`,
-  };
   let imageStyles = {
     backgroundColor: `#1A202C`,
   };
@@ -26,10 +24,10 @@ const PokeCard = ({ pokeData }) => {
   };
 
   return (
-    <div className="pokeCard animate-fadeIn ">
+    <div className="pokeCard animate-fadeIn">
       <div
         style={mainCardStyles}
-        className="poke-head h-140 flex flex-col w-90 rounded-3xl border-4 border-teal-50 p-4 gap-1 justify-around"
+        className={`poke-head pokeCards-anim transition-transform duration-300 h-140 flex flex-col w-90 rounded-3xl border-4 border-teal-50 p-4 gap-1 justify-around ${isCurrent ? "relative z-10 scale-110 border-yellow-400 border-8 rounded-4xl" : ""}`}
       >
         <div className="flex flex-row justify-center">
           <img
