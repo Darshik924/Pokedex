@@ -6,8 +6,9 @@ import { HiRefresh } from "react-icons/hi";
 import { useState, useRef } from "react";
 import pokeTheme from "../assets/pokemon_opening_theme.mp3";
 import Logo from "../assets/logonew4.png";
+import { VIEW } from "../constants";
 
-const Nav = ({ bgColor, setIsOnGallery, isOnPokeView, isOnGallery }) => {
+const Nav = ({ bgColor, setView, view }) => {
   const themeSong = useRef(new Audio(pokeTheme)); // Using useRef will make it create audio object only once and its value will persist across re-renders
   const [isPlaying, setisPlaying] = useState(false);
   const toggleAudio = () => {
@@ -22,11 +23,11 @@ const Nav = ({ bgColor, setIsOnGallery, isOnPokeView, isOnGallery }) => {
     setisPlaying(!isPlaying);
   };
   const iconStyleHome = {
-    color: `${isOnGallery ? "white" : "#FFCB05"}`,
+    color: `${view === "gallery" ? "white" : "#FFCB05"}`,
     fontSize: "24px",
   };
   const iconStyleComp = {
-    color: `${isOnGallery ? "#FFCB05" : "white"}`,
+    color: `${view === "gallery" ? "#FFCB05" : "white"}`,
     fontSize: "24px",
   };
   const iconStyle = {
@@ -44,11 +45,11 @@ const Nav = ({ bgColor, setIsOnGallery, isOnPokeView, isOnGallery }) => {
   const homeClick = () => {
     window.location.reload();
   };
-  const enterComparison = () => {
-    if (isOnPokeView) {
+  const enterGallery = () => {
+    if (view === "single") {
       alert("Please go back to home to open gallery");
     }
-    setIsOnGallery(true);
+    setView(VIEW.GALLERY);
   };
 
   return (
@@ -74,7 +75,7 @@ const Nav = ({ bgColor, setIsOnGallery, isOnPokeView, isOnGallery }) => {
           </button>
         </li>
         <li className="mr-13">
-          <button onClick={enterComparison}>
+          <button onClick={enterGallery}>
             <FaCodeCompare
               style={iconStyleComp}
               className="h-9 w-10 hover:cursor-pointer hover:bg-[#1df8c5f4] rounded-l"

@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react";
 import PokeView from "./PokeView.jsx";
 import PokeSkeleton from "./PokeSkeleton.jsx";
-import { typeGradients } from "../constants";
+import { typeGradients, VIEW } from "../constants";
 import { fetchPokeData } from "../api/pokemonApi.js";
 import PokeGallery from "./PokeGallery.jsx";
 import PokeGallerySkeleton from "./PokeGallerySkeleton.jsx";
 
-const FrontBanner = ({
-  updateNavTheme,
-  isOnGallery,
-  setIsOnGallery,
-  setIsOnPokeView,
-}) => {
+const FrontBanner = ({ updateNavTheme, view, setView }) => {
   const [hasSearchedMulti, setHasSearchedMulti] = useState(false);
   const [pokeName, setpokeName] = useState("");
   const [multiPokeData, setMultiPokeData] = useState([]);
@@ -50,11 +45,10 @@ const FrontBanner = ({
     try {
       setEmptyError(false);
       setIncorrectPokename(false);
-      setIsOnGallery(false);
       setisLoading(true);
       setHasSearchedMulti(true);
-      setIsOnPokeView(false);
       setData(null);
+      setView(VIEW.HOME);
       const names = pokeName.trim().toLowerCase().split(" ");
 
       const pokeDataResult = await Promise.all(
@@ -83,12 +77,11 @@ const FrontBanner = ({
     const types = data.types.map((t) => t.type.name);
     const { nav } = typeGradients[types[0]];
     updateNavTheme(nav);
-    setIsOnPokeView(true);
+    setView(VIEW.SIGNLE);
   }, [data, updateNavTheme]);
 
   const morePokesClicked = async () => {
-    setIsOnGallery(true);
-    setIsOnPokeView(false);
+    setView(VIEW.GALLERY);
     setData(null);
   };
 
@@ -164,7 +157,7 @@ const FrontBanner = ({
                 </div>
               )}
 
-              {isOnGallery && (
+              {view === VIEW.GALLERY && (
                 <div className="flex searchBar flex-col gap-10">
                   <div className="gallery-text text-4xl text-yellow-950/85 font-bold">
                     Search For multiple Pokemon Gallery at once

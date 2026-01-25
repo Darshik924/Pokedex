@@ -1550,4 +1550,10 @@ function colourBasedTypes(type) {
   return typeCardColors[type];
 }
 
-export { typeGradients, colourBasedTypes, getTypeMatchs };
+const VIEW = {
+  GALLERY: "gallery",
+  SIGNLE: "single",
+  HOME: "home",
+};
+
+export { typeGradients, colourBasedTypes, getTypeMatchs, VIEW };
