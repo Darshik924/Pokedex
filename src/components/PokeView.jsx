@@ -9,6 +9,7 @@ const PokeView = ({ fetchedData }) => {
   const [evolutions, setEvolutions] = useState([]);
   const [incorrectPokeName, setIncorrectPokename] = useState(false);
 
+  /* useEffect hook used to provide a side effects to our component that is to fetch the data for evolution chain */
   useEffect(() => {
     if (!fetchedData) {
       return;
