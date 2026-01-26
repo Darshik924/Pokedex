@@ -105,13 +105,13 @@ const FrontBanner = ({ updateNavTheme, view, setView }) => {
       {isLoading && !(view === VIEW.GALLERY) && <PokeSkeleton />}
 
       {view === VIEW.GALLERY && isLoading && (
-        <section className="mt-15 Banner min-h-screen bg-linear-to-r from-[#FFCB05]/70 to-[#3466AF]/70 pt-18 w-full bg-cover bg-center">
+        <section className="mt-15 Banner pb-30 min-h-screen bg-linear-to-r from-[#FFCB05]/70 to-[#3466AF]/70 pt-18 w-full bg-cover bg-center">
           <PokeGallerySkeleton />
         </section>
       )}
 
       {!isLoading && !data && (
-        <section className="mt-15 Banner min-h-screen bg-linear-to-r from-[#FFCB05]/70 to-[#3466AF]/70 pt-18 w-full bg-cover bg-center">
+        <section className="mt-15 Banner pb-30 min-h-screen bg-linear-to-r from-[#FFCB05]/70 to-[#3466AF]/70 pt-18 w-full bg-cover bg-center">
           <div className="flex justify-center">
             <div className="flex flex-col justify-center items-center gap-10">
               <div className="ban-text text-8xl text-yellow-950/85 font-bold">
